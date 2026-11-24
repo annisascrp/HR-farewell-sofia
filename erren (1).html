@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff4e8">
+<title>A little book for Erren | SxC Batch 9</title>
+<style>
+
+:root{
+  --ink:#293044;--muted:#6b7185;--pink:#f5a9bf;--pink-deep:#d96d91;
+  --yellow:#ffe39a;--blue:#b9e4f1;--paper:#fffefa;--line:#eee7dc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;padding:clamp(12px,3vw,30px) 12px 40px;
+  color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+  background:radial-gradient(circle at 12% 8%,#fff5df 0,transparent 30%),
+             radial-gradient(circle at 90% 22%,#e6f5ff 0,transparent 34%),
+             linear-gradient(145deg,#fff0f3,#f4f0ff 58%,#eefaff);
+}
+.wrap{width:min(100%,760px);margin:0 auto}
+.topline{
+  margin:0 auto 14px;text-align:center;color:#77788c;
+  font:700 10px/1.5 Arial,sans-serif;letter-spacing:1.8px;
+}
+.cover{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(30px,7vw,58px) clamp(18px,5vw,40px);
+  background:rgba(255,254,250,.96);border:1px solid #fff;border-radius:26px;
+  box-shadow:0 14px 42px #505a7620;
+}
+.cover:before,.cover:after{content:"✿";position:absolute;font-size:clamp(42px,9vw,70px);opacity:.22;pointer-events:none}
+.cover:before{left:14px;top:6px;color:#ee8ba8}
+.cover:after{right:14px;bottom:2px;color:#75bfd8}
+.sticker{
+  display:inline-block;padding:8px 13px;border-radius:999px;background:#fff0b7;
+  font:700 10px Arial,sans-serif;letter-spacing:1.25px;
+}
+.byline{margin:14px 0 0;color:#8b6c80;font:italic 13px/1.5 Arial,sans-serif}
+h1{margin:20px 0 12px;font-size:clamp(34px,8vw,56px);line-height:1.04}
+.name{color:var(--pink-deep)}
+.subtitle{max-width:440px;margin:0 auto 24px;color:var(--muted);font:14px/1.7 Arial,sans-serif}
+button{
+  min-height:44px;border:0;border-radius:999px;padding:12px 18px;
+  background:#30354a;color:#fff;font:700 12px Arial,sans-serif;
+  letter-spacing:.25px;cursor:pointer;box-shadow:0 4px 0 #1e2334;
+  touch-action:manipulation;transition:transform .16s ease,opacity .16s ease;
+}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #1e2334}
+button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+#book{display:none;margin-top:18px}
+.book-shell{
+  padding:clamp(8px,2vw,14px);border-radius:22px;
+  background:linear-gradient(135deg,#f7cbd8,#dceef6);
+  box-shadow:0 14px 38px #46516b20;
+}
+.book-head{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 7px 13px;color:#71495d;
+  font:700 10px/1.4 Arial,sans-serif;letter-spacing:.8px;
+}
+.paper-page{
+  min-height:0;background:var(--paper);border-radius:15px;
+  padding:clamp(19px,5vw,42px);border:1px solid #fff;
+  box-shadow:inset 0 0 0 1px var(--line);
+  font-size:clamp(15px,2vw,16px);line-height:1.85;overflow-wrap:anywhere;
+  animation:pageIn .22s ease both;
+}
+.paper-page p{margin:0 0 17px;white-space:pre-wrap}
+.paper-page p:last-child{margin-bottom:0}
+@keyframes pageIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.controls{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:8px;padding:14px 2px 3px;
+}
+.controls button{padding:10px 13px;min-height:42px;font-size:10px}
+.controls button:last-child{justify-self:end}
+.counter{font:700 10px Arial,sans-serif;color:#70465a;white-space:nowrap}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.tools button{width:100%;padding:12px 10px;font-size:10px}
+.musicbox,.secret{
+  margin-top:12px;padding:clamp(14px,3vw,20px);text-align:center;
+  background:#ffffffd9;border:1px solid #fff;border-radius:17px;
+  box-shadow:0 6px 22px #4b547510;
+}
+.musicbox strong,.secret strong{font:700 11px Arial,sans-serif;letter-spacing:.8px}
+.musicbox p,.secret p{margin:8px 0;color:var(--muted);font:12px/1.65 Arial,sans-serif}
+#player{display:none;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:12px;margin-top:12px}
+.secret-content{
+  display:none;margin-top:10px;padding:14px;border-radius:12px;
+  background:#fff5cc;font:13px/1.7 Arial,sans-serif;
+}
+.footer{margin-top:20px;text-align:center;color:#858397;font:11px/1.6 Arial,sans-serif}
+@media(max-width:520px){
+  body{padding:12px 10px 28px}
+  .topline{font-size:9px;letter-spacing:1.3px;margin-bottom:10px}
+  .cover{border-radius:21px;padding:34px 17px}
+  .subtitle{font-size:13px;margin-bottom:20px}
+  .book-shell{border-radius:18px;padding:7px}
+  .book-head{font-size:9px;letter-spacing:.45px;padding:9px 5px 11px}
+  .paper-page{padding:19px 17px;font-size:15px;line-height:1.78}
+  .paper-page p{margin-bottom:15px}
+  .tools{grid-template-columns:1fr;gap:9px;margin:12px 0}
+  .tools button{min-height:46px;font-size:11px}
+  .controls{gap:5px}
+  .controls button{padding:9px 10px;font-size:9px;min-height:42px}
+  .counter{font-size:9px}
+  .musicbox,.secret{border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topline">SXC BATCH 9 · A PERSONAL LITTLE GIFT</div>
+  <section class="cover" id="cover">
+    <span class="sticker">MADE JUST FOR YOU</span>
+    <div class="byline">A personal farewell letter from Sofia</div>
+    <h1>A little<br>book for<br><span class="name">Erren</span></h1>
+    <p class="subtitle">A collection of words, appreciation, and little things I want you to keep.</p>
+    <button id="openBtn">OPEN YOUR BOOK ✦</button>
+  </section>
+
+  <section id="book">
+    <div class="book-shell">
+      <div class="book-head"><span>THE LITTLE SCRAPBOOK OF US</span><span>♡ SxC 09</span></div>
+      <div id="pages">
+        <article class="paper-page"><p>erren, honestly, I think you&#x27;re one of the most positive-vibes people I&#x27;ve ever known. dari pembawaan lu yang selalu lembut, tenang, tapi tetap tegas, gue ngerasa lu punya karakter yang unik banget. lu selalu tahu apa yang lu mau, tahu apa yang harus lu lakuin, dan yang paling gue appreciate adalah lu beneran mengusahakan apa yang udah lu omongin. when you say something, people can actually count on it. buat gue, itu kualitas yang nggak semua orang punya. lu bukan cuma orang yang punya banyak rencana, tapi juga orang yang benar-benar mau merealisasikannya.</p>
+<p>gue juga suka banget sama cara lu memperlakukan orang. lu tuh lembut banget, dan setiap kali gue cerita sama lu, rasanya kayak lagi disayang-sayang. WKWKWK. you just have this way of making people feel safe and appreciated. bahkan gue yakin nggak banyak orang yang nggak suka sama lu. inget nggak Sabrina, temen gue anak bisdig? dia pernah komen di story Instagram gue kalau dia seneng banget setiap ngeliat muka lu muncul di story gue. WKWKWK. buat gue, itu bukti kalau positive vibes yang lu punya tuh genuinely felt by other people, even those who don&#x27;t really know you personally. lu tahu kapan harus lembut, kapan harus tegas, dan bagaimana memperlakukan orang tanpa harus kehilangan prinsip diri sendiri. lu tuh definisi bukan cewek bingung menurut gue. WKWKWK.</p></article>
+<article class="paper-page"><p>selama kerja bareng lu, gue selalu ngerasa tenang dan safe. because I know I have someone I can rely on. lu selalu berusaha make sure kalau diri lu bisa diandalkan, dan secara nggak langsung itu juga bikin gue pengen jadi partner yang sama-sama bisa diandalkan buat lu. I think that&#x27;s one of the best things about working with you. kehadiran lu bikin gue nggak merasa harus menghadapi semuanya sendirian.</p>
+<p>gue masih inget banget waktu lu nawarin gue buat jadi CEO, sekaligus menyampaikan kalau lu pengen mengambil posisi Chief Human Resources. honestly, that conversation changed something in me. tawaran dan keinginan lu buat membersamai gue di posisi itu tiba-tiba bikin gue punya pikiran yang jauh lebih kuat buat mengambil kesempatan jadi CEO. bahkan saat itu, mungkin 80% jawaban gue udah iya. gue langsung ngerasa excited dan bangga banget kalau bisa membangun SxC lagi bareng lu. karena gue ngerasa pemikiran kita tuh sebenarnya banyak banget yang sama, cuma kita hadir dengan versi yang berbeda. lu punya pendekatan yang lebih soft, lebih lembut, dan tenang, sementara gue mungkin lebih frontal, tegas, dan sedikit otoriter. WKWKWK. but I think that&#x27;s exactly what makes us complement each other. kita punya tujuan yang sama, tapi punya cara masing-masing buat mencapainya.</p></article>
+<article class="paper-page"><p>adanya lu buat sama-sama ngebangun SxC Batch 10 bikin gue semakin optimis sama apa yang bisa kita capai. gue jadi semakin yakin kalau ekspektasi gue terhadap SxC bisa terwujud, dan semoga ekspektasi orang-orang terhadap Batch 10 juga bisa kita jawab dengan baik. I genuinely believe that we can build something meaningful together. dan gue seneng banget karena ternyata gue punya seseorang yang bisa gue percaya buat menjalani perjalanan ini.</p>
+<p>there&#x27;s also something about your heart that I really want you to know. dari beberapa cerita yang pernah lu bagiin tentang keluarga lu, gue menangkap kalau lu terbiasa membelikan cinta dan kehangatan kepada orang-orang di sekitar lu. and somehow, that warmth doesn&#x27;t stop there. bahkan di luar keluarga, lu tetap jadi seseorang yang berusaha membelikan perhatian, kepedulian, dan rasa nyaman buat orang lain. sometimes I wonder, who&#x27;s taking care of someone like you? gue berharap lu selalu dikelilingi orang-orang yang bisa membelikan kehangatan yang sama besarnya dengan apa yang selama ini lu belikan. gue pengen suatu hari nanti ada seseorang yang cintanya ke lu bahkan jauh lebih besar daripada cinta yang selama ini lu kasih ke orang-orang. someone who makes you feel loved without having to constantly give love first. karena menurut gue, lu deserve to receive that kind of love, erren.</p></article>
+<article class="paper-page"><p>satu hal lagi yang gue notice selama jadi partner lu adalah lu punya free will yang kuat. lu tahu apa yang bisa lu lakukan, tahu kapan harus mengambil keputusan, dan tahu bagaimana menggunakan kebebasan yang lu punya. tapi yang menarik, lu sering menggunakan itu bukan cuma buat kepentingan diri sendiri, melainkan juga buat membantu dan jadi tameng buat orang-orang di sekitar lu. gue juga tahu pasti ada banyak hal yang sebenarnya bikin lu nggak nyaman atau nggak lu suka, tapi lu punya cara sendiri buat membuat semuanya tetap terasa ringan buat orang lain. you make things look effortless, even when I know they might not be. and I really admire that. gue yakin banget semua kualitas itu akan bikin lu jadi HR yang keren suatu hari nanti, bukan cuma karena kemampuan profesional lu, tapi juga karena lu benar-benar punya kepedulian terhadap manusia.</p>
+<p>gue berharap banget suatu hari nanti lu bisa dapet pekerjaan di lingkungan yang lu inginkan, di perusahaan yang green flag, dengan orang-orang yang punya value dan prinsip yang sejalan sama lu. semoga lu bisa jadi HR yang punya ruang buat menerapkan idealisme lu, memperjuangkan hal-hal yang menurut lu benar, dan nggak harus mengorbankan prinsip diri sendiri demi pekerjaan. I hope you find a workplace that deserves someone like you. dan please, inget nama gue ya, erren! siapa tahu suatu hari nanti gue apply ke perusahaan tempat lu kerja dan ternyata lu yang jadi HR-nya HEHEEEEEEHE</p></article>
+<article class="paper-page"><p>lastly, thank you so much for being willing to accompany me in building SxC Batch 10. thank you for trusting me, for being willing to take this journey together, and for giving me another reason to believe that I can do this. gue harap gue juga bisa jadi seseorang yang mampu memenuhi ekspektasi lu terhadap gue dan terhadap SxC Batch 10 nanti. I don&#x27;t want to be someone who only has big expectations, but someone who can actually prove that the trust you&#x27;ve given me is worth it.</p>
+<p>dan mungkin ada satu hal yang nggak pernah gue sampaikan secara langsung. I don&#x27;t think I would&#x27;ve ever seriously considered taking the CEO position if you weren&#x27;t part of this journey. gue mungkin bakal anxiety parah, overthinking semuanya, dan terus-terusan mempertanyakan apakah gue mampu atau nggak. but knowing that you&#x27;ll be there, knowing that we share the same vision, and knowing that I have someone like you to build this with makes me feel so much more confident. lu mungkin nggak sadar, tapi kehadiran lu punya pengaruh sebesar itu buat gue.</p></article>
+<article class="paper-page"><p>you are one of the people who made me believe that I could do more than I initially thought I could. dan sekarang gue semakin paham kenapa orang-orang sering bilang kalau lu tuh definisi seseorang yang berhasil menerapkan non-zero impact kepada orang-orang terdekatnya. because I&#x27;m one of those people who genuinely experienced it. mungkin lu nggak selalu sadar seberapa besar pengaruh kehadiran dan tindakan kecil lu terhadap orang lain, but I hope you know that you&#x27;ve made a difference in my life.</p>
+<p>thank you for being erren. thank you for being someone who brings warmth, comfort, and positivity without even having to try too hard. I&#x27;m genuinely grateful that SxC brought us together, and even more grateful that I get to build another chapter with you.</p></article>
+<article class="paper-page"><p>let&#x27;s make Batch 10 a good one, erren. and whatever happens after this, I hope we never stop being people who can count on each other.</p>
+<p>I&#x27;m really glad I have you by my side. ❤️</p></article>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">← BACK</button>
+        <span class="counter" id="counter"></span>
+        <button id="nextBtn">NEXT →</button>
+      </div>
+    </div>
+
+    <div class="tools">
+      <button id="musicBtn">♫ PLAY OUR SONG</button>
+      <button id="secretBtn">✉ OPEN A LITTLE NOTE</button>
+    </div>
+    <div class="musicbox">
+      <strong>OUR LITTLE SOUNDTRACK</strong>
+      <p>Tekan tombol play untuk memutar lagu pilihan. Video musik YouTube akan muncul di sini setelah tombol ditekan.</p>
+      <iframe id="player" title="Music player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="secret">
+      <strong>A LITTLE EXTRA FOR YOU</strong>
+      <div class="secret-content" id="secretContent">Thank you for being part of my SxC journey. Keep this little reminder: you are appreciated.</div>
+    </div>
+  </section>
+  <div class="footer">Made with care by Sofia · SxC Batch 9</div>
+</main>
+<script>
+// Lagu pilihan khusus untuk penerima surat ini.
+const MUSIC_URL = 'https://youtu.be/6kLEQi0u5rA';
+
+const pages = [...document.querySelectorAll(".paper-page")];
+let current = 0;
+const showPage = () => {
+  pages.forEach((page, i) => page.style.display = i === current ? "block" : "none");
+  document.getElementById("counter").textContent = `PAGE ${current+1} / ${pages.length}`;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").textContent = current === pages.length-1 ? "THE END ✓" : "NEXT →";
+};
+document.getElementById("openBtn").addEventListener("click", () => {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("book").style.display = "block";
+  showPage();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("prevBtn").addEventListener("click", () => { if(current>0){current--;showPage();} });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if(current<pages.length-1){current++;showPage();}
+  else { document.getElementById("secretContent").style.display="block"; }
+});
+document.getElementById("musicBtn").addEventListener("click", () => {
+  const player = document.getElementById("player");
+  let embedUrl = "";
+  const spotify = MUSIC_URL.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?track\/([A-Za-z0-9]+)/);
+  const youtube = MUSIC_URL.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|music\.youtube\.com\/watch\?(?:.*&)?v=)([A-Za-z0-9_-]{11})/);
+  if (spotify) {
+    embedUrl = "https://open.spotify.com/embed/track/" + spotify[1] + "?utm_source=generator";
+    player.style.aspectRatio = "auto";
+    player.style.height = "152px";
+  } else if (youtube) {
+    embedUrl = "https://www.youtube-nocookie.com/embed/" + youtube[1] + "?autoplay=1&rel=0";
+    player.style.aspectRatio = "16 / 9";
+    player.style.height = "auto";
+  } else {
+    alert("Tautan lagu belum valid. Cek MUSIC_URL pada kode HTML.");
+    return;
+  }
+  player.src = embedUrl;
+  player.style.display = "block";
+  document.getElementById("musicBtn").textContent = "♫ SONG PLAYER OPEN";
+});
+document.getElementById("secretBtn").addEventListener("click", () => {
+  const note=document.getElementById("secretContent");
+  note.style.display = note.style.display==="block" ? "none" : "block";
+});
+showPage();
+</script>
+</body>
+</html>

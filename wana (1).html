@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff4e8">
+<title>A little book for Wana | SxC Batch 9</title>
+<style>
+
+:root{
+  --ink:#293044;--muted:#6b7185;--pink:#f5a9bf;--pink-deep:#d96d91;
+  --yellow:#ffe39a;--blue:#b9e4f1;--paper:#fffefa;--line:#eee7dc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;padding:clamp(12px,3vw,30px) 12px 40px;
+  color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+  background:radial-gradient(circle at 12% 8%,#fff5df 0,transparent 30%),
+             radial-gradient(circle at 90% 22%,#e6f5ff 0,transparent 34%),
+             linear-gradient(145deg,#fff0f3,#f4f0ff 58%,#eefaff);
+}
+.wrap{width:min(100%,760px);margin:0 auto}
+.topline{
+  margin:0 auto 14px;text-align:center;color:#77788c;
+  font:700 10px/1.5 Arial,sans-serif;letter-spacing:1.8px;
+}
+.cover{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(30px,7vw,58px) clamp(18px,5vw,40px);
+  background:rgba(255,254,250,.96);border:1px solid #fff;border-radius:26px;
+  box-shadow:0 14px 42px #505a7620;
+}
+.cover:before,.cover:after{content:"✿";position:absolute;font-size:clamp(42px,9vw,70px);opacity:.22;pointer-events:none}
+.cover:before{left:14px;top:6px;color:#ee8ba8}
+.cover:after{right:14px;bottom:2px;color:#75bfd8}
+.sticker{
+  display:inline-block;padding:8px 13px;border-radius:999px;background:#fff0b7;
+  font:700 10px Arial,sans-serif;letter-spacing:1.25px;
+}
+.byline{margin:14px 0 0;color:#8b6c80;font:italic 13px/1.5 Arial,sans-serif}
+h1{margin:20px 0 12px;font-size:clamp(34px,8vw,56px);line-height:1.04}
+.name{color:var(--pink-deep)}
+.subtitle{max-width:440px;margin:0 auto 24px;color:var(--muted);font:14px/1.7 Arial,sans-serif}
+button{
+  min-height:44px;border:0;border-radius:999px;padding:12px 18px;
+  background:#30354a;color:#fff;font:700 12px Arial,sans-serif;
+  letter-spacing:.25px;cursor:pointer;box-shadow:0 4px 0 #1e2334;
+  touch-action:manipulation;transition:transform .16s ease,opacity .16s ease;
+}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #1e2334}
+button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+#book{display:none;margin-top:18px}
+.book-shell{
+  padding:clamp(8px,2vw,14px);border-radius:22px;
+  background:linear-gradient(135deg,#f7cbd8,#dceef6);
+  box-shadow:0 14px 38px #46516b20;
+}
+.book-head{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 7px 13px;color:#71495d;
+  font:700 10px/1.4 Arial,sans-serif;letter-spacing:.8px;
+}
+.paper-page{
+  min-height:0;background:var(--paper);border-radius:15px;
+  padding:clamp(19px,5vw,42px);border:1px solid #fff;
+  box-shadow:inset 0 0 0 1px var(--line);
+  font-size:clamp(15px,2vw,16px);line-height:1.85;overflow-wrap:anywhere;
+  animation:pageIn .22s ease both;
+}
+.paper-page p{margin:0 0 17px;white-space:pre-wrap}
+.paper-page p:last-child{margin-bottom:0}
+@keyframes pageIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.controls{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:8px;padding:14px 2px 3px;
+}
+.controls button{padding:10px 13px;min-height:42px;font-size:10px}
+.controls button:last-child{justify-self:end}
+.counter{font:700 10px Arial,sans-serif;color:#70465a;white-space:nowrap}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.tools button{width:100%;padding:12px 10px;font-size:10px}
+.musicbox,.secret{
+  margin-top:12px;padding:clamp(14px,3vw,20px);text-align:center;
+  background:#ffffffd9;border:1px solid #fff;border-radius:17px;
+  box-shadow:0 6px 22px #4b547510;
+}
+.musicbox strong,.secret strong{font:700 11px Arial,sans-serif;letter-spacing:.8px}
+.musicbox p,.secret p{margin:8px 0;color:var(--muted);font:12px/1.65 Arial,sans-serif}
+#player{display:none;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:12px;margin-top:12px}
+.secret-content{
+  display:none;margin-top:10px;padding:14px;border-radius:12px;
+  background:#fff5cc;font:13px/1.7 Arial,sans-serif;
+}
+.footer{margin-top:20px;text-align:center;color:#858397;font:11px/1.6 Arial,sans-serif}
+@media(max-width:520px){
+  body{padding:12px 10px 28px}
+  .topline{font-size:9px;letter-spacing:1.3px;margin-bottom:10px}
+  .cover{border-radius:21px;padding:34px 17px}
+  .subtitle{font-size:13px;margin-bottom:20px}
+  .book-shell{border-radius:18px;padding:7px}
+  .book-head{font-size:9px;letter-spacing:.45px;padding:9px 5px 11px}
+  .paper-page{padding:19px 17px;font-size:15px;line-height:1.78}
+  .paper-page p{margin-bottom:15px}
+  .tools{grid-template-columns:1fr;gap:9px;margin:12px 0}
+  .tools button{min-height:46px;font-size:11px}
+  .controls{gap:5px}
+  .controls button{padding:9px 10px;font-size:9px;min-height:42px}
+  .counter{font-size:9px}
+  .musicbox,.secret{border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topline">SXC BATCH 9 · A PERSONAL LITTLE GIFT</div>
+  <section class="cover" id="cover">
+    <span class="sticker">MADE JUST FOR YOU</span>
+    <div class="byline">A personal farewell letter from Sofia</div>
+    <h1>A little<br>book for<br><span class="name">Wana</span></h1>
+    <p class="subtitle">A collection of words, appreciation, and little things I want you to keep.</p>
+    <button id="openBtn">OPEN YOUR BOOK ✦</button>
+  </section>
+
+  <section id="book">
+    <div class="book-shell">
+      <div class="book-head"><span>THE LITTLE SCRAPBOOK OF US</span><span>♡ SxC 09</span></div>
+      <div id="pages">
+        <article class="paper-page"><p>wana, honestly, first impression gue waktu pertama kali kenal lu tuh gue ngerasa kayaknya bakal susah banget buat deket sama lu. gue sempat mikir kalau kita mungkin nggak akan punya banyak kesempatan buat benar-benar mengenal satu sama lain. but somehow, things turned out differently.</p>
+<p>di pertengahan perjalanan HR, gue mulai notice ada perubahan motivasi dari diri lu. dari beberapa cerita associate lain dan juga Erren sebagai manager lu, gue jadi punya keinginan buat mencoba lebih dekat sama lu, mungkin sebagai sesama bagian dari HR. sampai akhirnya ada satu momen offline event yang ternyata mengubah banyak pandangan gue tentang lu. ternyata lu jauh berbeda dari apa yang awalnya gue bayangkan. when I tried to reach out, you were actually such a kind person. dan semakin sering kita ketemu secara offline, semakin banyak juga hal dari diri lu yang gue kenal.</p></article>
+<article class="paper-page"><p>apalagi ketika lu mulai lebih terbuka cerita tentang kendala dan hal-hal yang sedang lu hadapi selama HR buddy. dari situ gue mulai melihat Wana dari perspektif yang berbeda. ternyata ada banyak hal dalam hidup lu yang nggak sederhana. mulai dari bagaimana lu menghadapi diri sendiri, menyadari kekurangan dan ego yang mungkin masih perlu lu perbaiki, sampai cerita tentang keadaan keluarga lu. and honestly, I&#x27;m amazed by how you&#x27;ve grown through all of that. gue nggak tahu seberapa berat perjalanan yang udah lu lewati, tapi melihat lu tetap bisa tumbuh, membelikan kebermanfaatan buat orang lain, dan punya ambisi yang terus lu usahakan sampai sekarang, itu sesuatu yang genuinely makes me proud of you.</p>
+<p>ada satu hal yang mungkin lu nggak sadar, tapi kadang lu justru jadi salah satu alasan gue semangat buat datang ke rapat. WKWKWK. bukan karena ada sesuatu yang harus gue bahas sama lu, tapi somehow, kehadiran lu punya cara sendiri buat bikin suasana jadi lebih menyenangkan. lu punya sense of humor yang khas, dan ada aja hal dari interaksi kita yang bikin gue ketawa. I think you have your own way of making people feel comfortable without even trying too hard. lu nggak harus selalu berusaha membuat semua orang suka sama lu atau menyesuaikan diri dengan ekspektasi orang lain. just be yourself, Wana. karena menurut gue, versi diri lu yang sekarang aja udah punya banyak hal baik untuk dibagikan ke orang lain.</p></article>
+<article class="paper-page"><p>gue juga admire bagaimana lu menyampaikan pendapat. lu mungkin bukan tipe orang yang selalu banyak bicara, tapi lu tahu kapan dan bagaimana harus menyuarakan sesuatu. lu nggak takut buat menyampaikan apa yang menurut lu benar, tapi di saat yang sama lu juga bisa menghargai pendapat orang lain meskipun nggak selalu sejalan sama pemikiran lu. there&#x27;s a certain wisdom in the way you handle things, and I really appreciate that. menurut gue, lu punya karakter yang cukup matang dalam menghadapi perbedaan. dan mungkin itu juga yang bikin gue melihat lu sebagai seseorang dengan potensi yang besar.</p>
+<p>but Wana, there&#x27;s one thing I really want you to remember. lu nggak harus selalu jadi orang yang kuat. gue tahu mungkin ada banyak hal yang membuat lu terbiasa untuk memahami keadaan, bertanggung jawab, dan menyelesaikan semuanya sendiri. apalagi dengan posisi lu sebagai anak pertama, mungkin ada ekspektasi tertentu yang selama ini tanpa sadar lu bawa. but you know what? you are allowed to be vulnerable too. lu boleh capek, boleh nggak tahu harus ngapain, boleh cerita, bahkan boleh punya hari-hari ketika lu nggak baik-baik aja. dan gue harap lu tahu bahwa orang-orang yang benar-benar peduli sama lu nggak akan berhenti menerima lu hanya karena lu sedang berada di titik paling rapuh. you don&#x27;t always have to be the strong one.</p></article>
+<article class="paper-page"><p>jujur, gue cukup menyayangkan keputusan lu untuk nggak lanjut di Batch 10. karena gue benar-benar melihat potensi yang besar dari diri lu. bahkan gue sempat berpikir, kalau suatu hari nanti gue punya perusahaan atau kesempatan buat membangun sesuatu bersama orang-orang hebat, gue pengen banget bisa kerja bareng lu. I would genuinely love to have someone like you on my team. bukan cuma karena kemampuan lu, tapi juga karena cara lu berpikir, mengambil keputusan, dan membawa diri lu dalam sebuah lingkungan.</p>
+<p>I hope you keep growing, keep chasing your ambitions, and keep becoming someone you&#x27;re proud of. gue doain semua hal yang sedang lu perjuangkan bisa menemukan hasil terbaiknya. dan yang paling penting, gue berharap lu nggak cuma berhasil dalam hal-hal yang sedang lu kejar, tapi juga bisa hidup dengan bahagia dan berdamai sama diri sendiri.</p></article>
+<article class="paper-page"><p>dan please, jangan sampai kita putus hubungan cuma karena udah nggak berada di organisasi yang sama. WKWKWK. gue masih pengen punya banyak kesempatan buat ketemu, ngobrol, bercanda, dan mendengar cerita-cerita baru dari lu. semoga setelah ini masih ada beribu-ribu kesempatan lain yang mempertemukan kita.</p>
+<p>I love you, Wana. I&#x27;m genuinely proud of you, with everything you&#x27;ve overcome, everything you&#x27;re working on, and every little progress you&#x27;ve made. thank you for letting me know a little more about who you really are. I&#x27;m really glad I got to know you beyond just being part of HR.</p></article>
+<article class="paper-page"><p>please grow well and be happy, Wana. you deserve that. ❤️</p></article>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">← BACK</button>
+        <span class="counter" id="counter"></span>
+        <button id="nextBtn">NEXT →</button>
+      </div>
+    </div>
+
+    <div class="tools">
+      <button id="musicBtn">♫ PLAY OUR SONG</button>
+      <button id="secretBtn">✉ OPEN A LITTLE NOTE</button>
+    </div>
+    <div class="musicbox">
+      <strong>OUR LITTLE SOUNDTRACK</strong>
+      <p>Tekan tombol play untuk memutar lagu pilihan. Video musik YouTube akan muncul di sini setelah tombol ditekan.</p>
+      <iframe id="player" title="Music player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="secret">
+      <strong>A LITTLE EXTRA FOR YOU</strong>
+      <div class="secret-content" id="secretContent">Thank you for being part of my SxC journey. Keep this little reminder: you are appreciated.</div>
+    </div>
+  </section>
+  <div class="footer">Made with care by Sofia · SxC Batch 9</div>
+</main>
+<script>
+// Lagu pilihan khusus untuk penerima surat ini.
+const MUSIC_URL = 'https://www.youtube.com/watch?v=UtF6Jej8yb4';
+
+const pages = [...document.querySelectorAll(".paper-page")];
+let current = 0;
+const showPage = () => {
+  pages.forEach((page, i) => page.style.display = i === current ? "block" : "none");
+  document.getElementById("counter").textContent = `PAGE ${current+1} / ${pages.length}`;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").textContent = current === pages.length-1 ? "THE END ✓" : "NEXT →";
+};
+document.getElementById("openBtn").addEventListener("click", () => {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("book").style.display = "block";
+  showPage();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("prevBtn").addEventListener("click", () => { if(current>0){current--;showPage();} });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if(current<pages.length-1){current++;showPage();}
+  else { document.getElementById("secretContent").style.display="block"; }
+});
+document.getElementById("musicBtn").addEventListener("click", () => {
+  const player = document.getElementById("player");
+  let embedUrl = "";
+  const spotify = MUSIC_URL.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?track\/([A-Za-z0-9]+)/);
+  const youtube = MUSIC_URL.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|music\.youtube\.com\/watch\?(?:.*&)?v=)([A-Za-z0-9_-]{11})/);
+  if (spotify) {
+    embedUrl = "https://open.spotify.com/embed/track/" + spotify[1] + "?utm_source=generator";
+    player.style.aspectRatio = "auto";
+    player.style.height = "152px";
+  } else if (youtube) {
+    embedUrl = "https://www.youtube-nocookie.com/embed/" + youtube[1] + "?autoplay=1&rel=0";
+    player.style.aspectRatio = "16 / 9";
+    player.style.height = "auto";
+  } else {
+    alert("Tautan lagu belum valid. Cek MUSIC_URL pada kode HTML.");
+    return;
+  }
+  player.src = embedUrl;
+  player.style.display = "block";
+  document.getElementById("musicBtn").textContent = "♫ SONG PLAYER OPEN";
+});
+document.getElementById("secretBtn").addEventListener("click", () => {
+  const note=document.getElementById("secretContent");
+  note.style.display = note.style.display==="block" ? "none" : "block";
+});
+showPage();
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff4e8">
+<title>A little book for Ali | SxC Batch 9</title>
+<style>
+
+:root{
+  --ink:#293044;--muted:#6b7185;--pink:#f5a9bf;--pink-deep:#d96d91;
+  --yellow:#ffe39a;--blue:#b9e4f1;--paper:#fffefa;--line:#eee7dc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;padding:clamp(12px,3vw,30px) 12px 40px;
+  color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+  background:radial-gradient(circle at 12% 8%,#fff5df 0,transparent 30%),
+             radial-gradient(circle at 90% 22%,#e6f5ff 0,transparent 34%),
+             linear-gradient(145deg,#fff0f3,#f4f0ff 58%,#eefaff);
+}
+.wrap{width:min(100%,760px);margin:0 auto}
+.topline{
+  margin:0 auto 14px;text-align:center;color:#77788c;
+  font:700 10px/1.5 Arial,sans-serif;letter-spacing:1.8px;
+}
+.cover{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(30px,7vw,58px) clamp(18px,5vw,40px);
+  background:rgba(255,254,250,.96);border:1px solid #fff;border-radius:26px;
+  box-shadow:0 14px 42px #505a7620;
+}
+.cover:before,.cover:after{content:"✿";position:absolute;font-size:clamp(42px,9vw,70px);opacity:.22;pointer-events:none}
+.cover:before{left:14px;top:6px;color:#ee8ba8}
+.cover:after{right:14px;bottom:2px;color:#75bfd8}
+.sticker{
+  display:inline-block;padding:8px 13px;border-radius:999px;background:#fff0b7;
+  font:700 10px Arial,sans-serif;letter-spacing:1.25px;
+}
+.byline{margin:14px 0 0;color:#8b6c80;font:italic 13px/1.5 Arial,sans-serif}
+h1{margin:20px 0 12px;font-size:clamp(34px,8vw,56px);line-height:1.04}
+.name{color:var(--pink-deep)}
+.subtitle{max-width:440px;margin:0 auto 24px;color:var(--muted);font:14px/1.7 Arial,sans-serif}
+button{
+  min-height:44px;border:0;border-radius:999px;padding:12px 18px;
+  background:#30354a;color:#fff;font:700 12px Arial,sans-serif;
+  letter-spacing:.25px;cursor:pointer;box-shadow:0 4px 0 #1e2334;
+  touch-action:manipulation;transition:transform .16s ease,opacity .16s ease;
+}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #1e2334}
+button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+#book{display:none;margin-top:18px}
+.book-shell{
+  padding:clamp(8px,2vw,14px);border-radius:22px;
+  background:linear-gradient(135deg,#f7cbd8,#dceef6);
+  box-shadow:0 14px 38px #46516b20;
+}
+.book-head{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 7px 13px;color:#71495d;
+  font:700 10px/1.4 Arial,sans-serif;letter-spacing:.8px;
+}
+.paper-page{
+  min-height:0;background:var(--paper);border-radius:15px;
+  padding:clamp(19px,5vw,42px);border:1px solid #fff;
+  box-shadow:inset 0 0 0 1px var(--line);
+  font-size:clamp(15px,2vw,16px);line-height:1.85;overflow-wrap:anywhere;
+  animation:pageIn .22s ease both;
+}
+.paper-page p{margin:0 0 17px;white-space:pre-wrap}
+.paper-page p:last-child{margin-bottom:0}
+@keyframes pageIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.controls{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:8px;padding:14px 2px 3px;
+}
+.controls button{padding:10px 13px;min-height:42px;font-size:10px}
+.controls button:last-child{justify-self:end}
+.counter{font:700 10px Arial,sans-serif;color:#70465a;white-space:nowrap}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.tools button{width:100%;padding:12px 10px;font-size:10px}
+.musicbox,.secret{
+  margin-top:12px;padding:clamp(14px,3vw,20px);text-align:center;
+  background:#ffffffd9;border:1px solid #fff;border-radius:17px;
+  box-shadow:0 6px 22px #4b547510;
+}
+.musicbox strong,.secret strong{font:700 11px Arial,sans-serif;letter-spacing:.8px}
+.musicbox p,.secret p{margin:8px 0;color:var(--muted);font:12px/1.65 Arial,sans-serif}
+#player{display:none;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:12px;margin-top:12px}
+.secret-content{
+  display:none;margin-top:10px;padding:14px;border-radius:12px;
+  background:#fff5cc;font:13px/1.7 Arial,sans-serif;
+}
+.footer{margin-top:20px;text-align:center;color:#858397;font:11px/1.6 Arial,sans-serif}
+@media(max-width:520px){
+  body{padding:12px 10px 28px}
+  .topline{font-size:9px;letter-spacing:1.3px;margin-bottom:10px}
+  .cover{border-radius:21px;padding:34px 17px}
+  .subtitle{font-size:13px;margin-bottom:20px}
+  .book-shell{border-radius:18px;padding:7px}
+  .book-head{font-size:9px;letter-spacing:.45px;padding:9px 5px 11px}
+  .paper-page{padding:19px 17px;font-size:15px;line-height:1.78}
+  .paper-page p{margin-bottom:15px}
+  .tools{grid-template-columns:1fr;gap:9px;margin:12px 0}
+  .tools button{min-height:46px;font-size:11px}
+  .controls{gap:5px}
+  .controls button{padding:9px 10px;font-size:9px;min-height:42px}
+  .counter{font-size:9px}
+  .musicbox,.secret{border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topline">SXC BATCH 9 · A PERSONAL LITTLE GIFT</div>
+  <section class="cover" id="cover">
+    <span class="sticker">MADE JUST FOR YOU</span>
+    <div class="byline">A personal farewell letter from Sofia</div>
+    <h1>A little<br>book for<br><span class="name">Ali</span></h1>
+    <p class="subtitle">A collection of words, appreciation, and little things I want you to keep.</p>
+    <button id="openBtn">OPEN YOUR BOOK ✦</button>
+  </section>
+
+  <section id="book">
+    <div class="book-shell">
+      <div class="book-head"><span>THE LITTLE SCRAPBOOK OF US</span><span>♡ SxC 09</span></div>
+      <div id="pages">
+        <article class="paper-page"><p>ali, before anything else, I just want to say thank you for all the effort you&#x27;ve put in throughout this journey. gue yakin lu udah berusaha semaksimal mungkin dengan segala keterbatasan informasi, pengalaman, dan kondisi yang lu punya saat itu. I understand that not everything was easy, and I genuinely appreciate how you still tried to give your best despite all those limitations. mungkin nggak semua hal berjalan sesuai ekspektasi, but I want you to know that your efforts are seen and appreciated.</p>
+<p>kalau boleh jujur dari perspektif gue sebagai partner kerja, ada satu hal yang cukup gue notice dari lu, yaitu kecenderungan lu buat overthinking. WKWKWK. sometimes, I feel like you spend too much energy thinking about things that might not necessarily turn out the way you imagine. dan menurut gue, akan sangat disayangkan kalau energi sebesar itu justru habis untuk memikirkan hal-hal yang belum tentu terjadi. I believe you can turn that energy into something more productive, something that helps you grow rather than makes you uncomfortable. karena terkadang, gue bisa cukup jelas melihat ketika lu sedang berada dalam kondisi nggak nyaman atau terlalu banyak memikirkan sesuatu.</p></article>
+<article class="paper-page"><p>di sisi lain, gue juga melihat kalau lu sebenarnya punya kemampuan yang cukup baik dalam mengelola emosi. lu bisa tetap menjalankan tanggung jawab dan menjaga sikap dalam berbagai situasi. but I also feel that there might be a lot of things you choose to keep to yourself. and I hope you learn that it&#x27;s okay to communicate what you feel, especially when something is bothering you. you don&#x27;t always have to figure everything out on your own.</p>
+<p>satu hal yang gue harap banget bisa lu bawa dari perjalanan ini adalah banyak pelajaran tentang bagaimana menjadi seorang leader. bukan cuma tentang bagaimana menyelesaikan pekerjaan atau memastikan semua tanggung jawab berjalan, tapi juga tentang bagaimana membangun komunikasi, menjadi lebih asertif, dan memberikan apresiasi kepada orang-orang yang bekerja bersama lu. sometimes, people need to hear that their efforts matter. and sometimes, being a good leader also means having the courage to express what you think, even when it&#x27;s uncomfortable. gue harap lu bisa semakin berani menyampaikan pendapat, memberikan feedback, sekaligus mengapresiasi orang lain dengan lebih terbuka.</p></article>
+<article class="paper-page"><p>I hope you take everything from this journey as something valuable for your next chapter. semoga ke depannya lu bisa menjadi pribadi dan leader yang semakin matang, lebih percaya sama kemampuan diri sendiri, dan nggak terlalu membebani diri dengan hal-hal yang sebenarnya masih bisa dikendalikan. gue juga doain perjalanan karier lu ke depannya semakin baik, dipertemukan dengan lingkungan kerja yang mendukung, dan punya banyak kesempatan buat berkembang.</p>
+<p>thank you for being my partner throughout this journey, Ali. I genuinely appreciate your efforts, and I hope you know that everything I&#x27;ve shared comes from my intention to see you become better.</p></article>
+<article class="paper-page"><p>keep growing, keep learning, and don&#x27;t forget to give yourself some credit for how far you&#x27;ve come. ❤️</p></article>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">← BACK</button>
+        <span class="counter" id="counter"></span>
+        <button id="nextBtn">NEXT →</button>
+      </div>
+    </div>
+
+    <div class="tools">
+      <button id="musicBtn">♫ PLAY OUR SONG</button>
+      <button id="secretBtn">✉ OPEN A LITTLE NOTE</button>
+    </div>
+    <div class="musicbox">
+      <strong>OUR LITTLE SOUNDTRACK</strong>
+      <p>Tekan tombol play untuk memutar lagu pilihan. Video musik YouTube akan muncul di sini setelah tombol ditekan.</p>
+      <iframe id="player" title="Music player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="secret">
+      <strong>A LITTLE EXTRA FOR YOU</strong>
+      <div class="secret-content" id="secretContent">Thank you for being part of my SxC journey. Keep this little reminder: you are appreciated.</div>
+    </div>
+  </section>
+  <div class="footer">Made with care by Sofia · SxC Batch 9</div>
+</main>
+<script>
+// Lagu pilihan khusus untuk penerima surat ini.
+const MUSIC_URL = 'https://www.youtube.com/watch?v=YSF0el5jMy0';
+
+const pages = [...document.querySelectorAll(".paper-page")];
+let current = 0;
+const showPage = () => {
+  pages.forEach((page, i) => page.style.display = i === current ? "block" : "none");
+  document.getElementById("counter").textContent = `PAGE ${current+1} / ${pages.length}`;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").textContent = current === pages.length-1 ? "THE END ✓" : "NEXT →";
+};
+document.getElementById("openBtn").addEventListener("click", () => {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("book").style.display = "block";
+  showPage();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("prevBtn").addEventListener("click", () => { if(current>0){current--;showPage();} });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if(current<pages.length-1){current++;showPage();}
+  else { document.getElementById("secretContent").style.display="block"; }
+});
+document.getElementById("musicBtn").addEventListener("click", () => {
+  const player = document.getElementById("player");
+  let embedUrl = "";
+  const spotify = MUSIC_URL.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?track\/([A-Za-z0-9]+)/);
+  const youtube = MUSIC_URL.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|music\.youtube\.com\/watch\?(?:.*&)?v=)([A-Za-z0-9_-]{11})/);
+  if (spotify) {
+    embedUrl = "https://open.spotify.com/embed/track/" + spotify[1] + "?utm_source=generator";
+    player.style.aspectRatio = "auto";
+    player.style.height = "152px";
+  } else if (youtube) {
+    embedUrl = "https://www.youtube-nocookie.com/embed/" + youtube[1] + "?autoplay=1&rel=0";
+    player.style.aspectRatio = "16 / 9";
+    player.style.height = "auto";
+  } else {
+    alert("Tautan lagu belum valid. Cek MUSIC_URL pada kode HTML.");
+    return;
+  }
+  player.src = embedUrl;
+  player.style.display = "block";
+  document.getElementById("musicBtn").textContent = "♫ SONG PLAYER OPEN";
+});
+document.getElementById("secretBtn").addEventListener("click", () => {
+  const note=document.getElementById("secretContent");
+  note.style.display = note.style.display==="block" ? "none" : "block";
+});
+showPage();
+</script>
+</body>
+</html>

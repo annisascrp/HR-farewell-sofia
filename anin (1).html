@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff4e8">
+<title>A little book for Anin | SxC Batch 9</title>
+<style>
+
+:root{
+  --ink:#293044;--muted:#6b7185;--pink:#f5a9bf;--pink-deep:#d96d91;
+  --yellow:#ffe39a;--blue:#b9e4f1;--paper:#fffefa;--line:#eee7dc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;padding:clamp(12px,3vw,30px) 12px 40px;
+  color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+  background:radial-gradient(circle at 12% 8%,#fff5df 0,transparent 30%),
+             radial-gradient(circle at 90% 22%,#e6f5ff 0,transparent 34%),
+             linear-gradient(145deg,#fff0f3,#f4f0ff 58%,#eefaff);
+}
+.wrap{width:min(100%,760px);margin:0 auto}
+.topline{
+  margin:0 auto 14px;text-align:center;color:#77788c;
+  font:700 10px/1.5 Arial,sans-serif;letter-spacing:1.8px;
+}
+.cover{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(30px,7vw,58px) clamp(18px,5vw,40px);
+  background:rgba(255,254,250,.96);border:1px solid #fff;border-radius:26px;
+  box-shadow:0 14px 42px #505a7620;
+}
+.cover:before,.cover:after{content:"✿";position:absolute;font-size:clamp(42px,9vw,70px);opacity:.22;pointer-events:none}
+.cover:before{left:14px;top:6px;color:#ee8ba8}
+.cover:after{right:14px;bottom:2px;color:#75bfd8}
+.sticker{
+  display:inline-block;padding:8px 13px;border-radius:999px;background:#fff0b7;
+  font:700 10px Arial,sans-serif;letter-spacing:1.25px;
+}
+.byline{margin:14px 0 0;color:#8b6c80;font:italic 13px/1.5 Arial,sans-serif}
+h1{margin:20px 0 12px;font-size:clamp(34px,8vw,56px);line-height:1.04}
+.name{color:var(--pink-deep)}
+.subtitle{max-width:440px;margin:0 auto 24px;color:var(--muted);font:14px/1.7 Arial,sans-serif}
+button{
+  min-height:44px;border:0;border-radius:999px;padding:12px 18px;
+  background:#30354a;color:#fff;font:700 12px Arial,sans-serif;
+  letter-spacing:.25px;cursor:pointer;box-shadow:0 4px 0 #1e2334;
+  touch-action:manipulation;transition:transform .16s ease,opacity .16s ease;
+}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #1e2334}
+button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+#book{display:none;margin-top:18px}
+.book-shell{
+  padding:clamp(8px,2vw,14px);border-radius:22px;
+  background:linear-gradient(135deg,#f7cbd8,#dceef6);
+  box-shadow:0 14px 38px #46516b20;
+}
+.book-head{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 7px 13px;color:#71495d;
+  font:700 10px/1.4 Arial,sans-serif;letter-spacing:.8px;
+}
+.paper-page{
+  min-height:0;background:var(--paper);border-radius:15px;
+  padding:clamp(19px,5vw,42px);border:1px solid #fff;
+  box-shadow:inset 0 0 0 1px var(--line);
+  font-size:clamp(15px,2vw,16px);line-height:1.85;overflow-wrap:anywhere;
+  animation:pageIn .22s ease both;
+}
+.paper-page p{margin:0 0 17px;white-space:pre-wrap}
+.paper-page p:last-child{margin-bottom:0}
+@keyframes pageIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.controls{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:8px;padding:14px 2px 3px;
+}
+.controls button{padding:10px 13px;min-height:42px;font-size:10px}
+.controls button:last-child{justify-self:end}
+.counter{font:700 10px Arial,sans-serif;color:#70465a;white-space:nowrap}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.tools button{width:100%;padding:12px 10px;font-size:10px}
+.musicbox,.secret{
+  margin-top:12px;padding:clamp(14px,3vw,20px);text-align:center;
+  background:#ffffffd9;border:1px solid #fff;border-radius:17px;
+  box-shadow:0 6px 22px #4b547510;
+}
+.musicbox strong,.secret strong{font:700 11px Arial,sans-serif;letter-spacing:.8px}
+.musicbox p,.secret p{margin:8px 0;color:var(--muted);font:12px/1.65 Arial,sans-serif}
+#player{display:none;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:12px;margin-top:12px}
+.secret-content{
+  display:none;margin-top:10px;padding:14px;border-radius:12px;
+  background:#fff5cc;font:13px/1.7 Arial,sans-serif;
+}
+.footer{margin-top:20px;text-align:center;color:#858397;font:11px/1.6 Arial,sans-serif}
+@media(max-width:520px){
+  body{padding:12px 10px 28px}
+  .topline{font-size:9px;letter-spacing:1.3px;margin-bottom:10px}
+  .cover{border-radius:21px;padding:34px 17px}
+  .subtitle{font-size:13px;margin-bottom:20px}
+  .book-shell{border-radius:18px;padding:7px}
+  .book-head{font-size:9px;letter-spacing:.45px;padding:9px 5px 11px}
+  .paper-page{padding:19px 17px;font-size:15px;line-height:1.78}
+  .paper-page p{margin-bottom:15px}
+  .tools{grid-template-columns:1fr;gap:9px;margin:12px 0}
+  .tools button{min-height:46px;font-size:11px}
+  .controls{gap:5px}
+  .controls button{padding:9px 10px;font-size:9px;min-height:42px}
+  .counter{font-size:9px}
+  .musicbox,.secret{border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topline">SXC BATCH 9 · A PERSONAL LITTLE GIFT</div>
+  <section class="cover" id="cover">
+    <span class="sticker">MADE JUST FOR YOU</span>
+    <div class="byline">A personal farewell letter from Sofia</div>
+    <h1>A little<br>book for<br><span class="name">Anin</span></h1>
+    <p class="subtitle">A collection of words, appreciation, and little things I want you to keep.</p>
+    <button id="openBtn">OPEN YOUR BOOK ✦</button>
+  </section>
+
+  <section id="book">
+    <div class="book-shell">
+      <div class="book-head"><span>THE LITTLE SCRAPBOOK OF US</span><span>♡ SxC 09</span></div>
+      <div id="pages">
+        <article class="paper-page"><p>anin, honestly, there&#x27;s a lot of things I want to say to you. first of all, I want you to know that I genuinely appreciate having you as one of my associates in IR. mungkin kamu bukan orang yang paling banyak bicara atau paling sering terlihat di tengah-tengah keramaian, but I&#x27;ve always noticed how well you do your job. kamu mungkin bukan tipe orang yang banyak menyampaikan sesuatu, tapi ketika ada tanggung jawab yang harus diselesaikan, kamu selalu punya cara untuk menunaikannya dengan baik. and I think that&#x27;s something worth appreciating.</p>
+<p>ada satu hal yang sebenarnya cukup sering aku pikirkan selama menjadi manager IR, yaitu aku merasa belum berhasil mengenal kamu lebih jauh. kita memang nggak terlalu sering bonding, jarang punya kesempatan buat ngobrol lebih banyak, dan mungkin interaksi kita selama ini lebih banyak sebatas urusan pekerjaan. but that doesn&#x27;t mean I don&#x27;t pay attention to you. aku justru sering bertanya-tanya apakah ada kendala yang sedang kamu hadapi, apakah ada sesuatu yang membuat kamu kurang nyaman di organisasi, atau apakah ada hal yang mungkin belum bisa aku fasilitasi sebagai manager. bahkan aku beberapa kali mencoba mencari tahu keadaan kamu lewat teman-teman psikologi dan teman-teman lainnya. I hope you know that I&#x27;ve always tried to make sure you&#x27;re doing okay, even when I didn&#x27;t always know how to approach you directly.</p></article>
+<article class="paper-page"><p>and honestly, I feel sorry for that. aku merasa belum berhasil membawa kamu sampai ke potensi terbaik yang sebenarnya kamu punya. mungkin selama ini aku terlalu banyak berfokus pada bagaimana IR bisa menyelesaikan tanggung jawab dan program kerjanya, sampai aku belum cukup maksimal membangun kedekatan dan environment yang bisa membuat setiap associate merasa benar-benar menjadi bagian dari IR. I know there&#x27;s a lot of things I could have done better, and I take responsibility for that. aku nggak mau menjadikan kesibukan atau keadaan organisasi sebagai alasan. I just wish I had done more to make your journey in IR more meaningful.</p>
+<p>but one thing I really want you to know is that I think you&#x27;re such a beautiful person, Anin. and I&#x27;m not just talking about how pretty you are. WKWKWK. menurut aku, kamu tuh punya karakter yang pas banget. kamu kalem, tapi nggak yang terlalu pendiam sampai sulit didekati. kamu juga punya sisi happy dan menyenangkan yang membuat kamu punya warna tersendiri. there&#x27;s something really lovely about the way you carry yourself. aku juga melihat kamu sebagai seseorang yang bijaksana. dari cara kamu menerima pendapat yang mungkin nggak selalu sesuai dengan keinginan kamu, sampai bagaimana kamu merespons arahan atau situasi yang mungkin sebenarnya nggak sepenuhnya kamu setujui. kamu nggak selalu harus banyak bicara untuk menunjukkan sesuatu. sometimes, your actions speak louder than your words. and I genuinely admire that maturity.</p></article>
+<article class="paper-page"><p>aku bahkan sering kepikiran kalau Jaki tuh beruntung banget bisa punya seseorang kayak kamu. WKWKWK. karena dari hal-hal kecil yang aku lihat, kamu punya cara berpikir dan pembawaan yang menurut aku dewasa. kamu bisa menerima sesuatu dengan tenang, mempertimbangkan banyak hal, dan tetap menjalankan apa yang memang menjadi tanggung jawab kamu. I hope you never lose that beautiful part of yourself.</p>
+<p>ada satu hal yang juga ingin aku minta maaf secara khusus, yaitu soal program kerja bonding yang kamu pegang. aku tahu waktu pelaksanaannya sempat berubah dan akhirnya harus ada beberapa hal yang dipangkas. and I&#x27;m really sorry that you had to go through that. keputusan tersebut sebenarnya di luar kontrol aku, karena ada pertimbangan dan keputusan dari pihak HR yang harus diambil saat itu. aku bahkan sempat mencoba menyampaikan argumen karena aku tahu ada hal-hal yang sudah kamu persiapkan dan usahakan. but eventually, we had to make a decision based on the circumstances, termasuk keterbatasan partisipan dan kondisi yang ada. aku tahu mungkin hasil akhirnya nggak sepenuhnya sesuai dengan apa yang kamu harapkan, and I really wish things had turned out differently. maaf karena kamu harus menerima keadaan yang mungkin nggak ideal selama menjalankan tanggung jawab kamu.</p></article>
+<article class="paper-page"><p>when I heard that you decided not to continue in Batch 10, I honestly felt really sad. bukan karena aku nggak menghargai keputusan kamu, but because I realized that I might not have another opportunity to make up for the things I couldn&#x27;t give you during Batch 9. salah satu alasan terbesar aku mau melanjutkan perjalanan di SxC Batch 10 adalah karena aku ingin memperbaiki banyak hal, termasuk bagaimana aku membersamai kamu dan Mariu selama di IR. aku ingin punya kesempatan untuk lebih mendengarkan kalian, membelikan ruang yang lebih luas, dan memenuhi ekspektasi yang mungkin belum berhasil aku jawab sebelumnya. but I understand that you have your own considerations, and I genuinely believe that whatever decision you&#x27;ve made is something you think is best for yourself. I respect that, Anin. meskipun ada sedikit bagian dari diri aku yang berharap kita masih bisa melanjutkan perjalanan ini bersama-sama.</p>
+<p>I just hope you know that your decision to leave doesn&#x27;t make your contribution any less meaningful. kamu tetap menjadi bagian dari perjalanan IR yang akan selalu aku ingat, and I&#x27;m grateful that I got the chance to work with you, even if I wish I had done more.</p></article>
+<article class="paper-page"><p>for your next journey, I really hope you find a career that fits you perfectly. aku melihat potensi yang besar dalam diri kamu, dan aku percaya potensi itu akan semakin terlihat ketika kamu berada di bidang yang benar-benar kamu sukai, dengan lingkungan yang mendukung cara kerja dan perkembangan diri kamu. semoga kamu bisa menemukan tempat yang bukan cuma membutuhkan kemampuan kamu, tapi juga membelikan ruang untuk kamu berkembang, mencoba banyak hal, dan menunjukkan versi terbaik dari diri kamu. I hope you get to work with people who appreciate your presence and recognize the value you bring to the table.</p>
+<p>aku juga berharap ke depannya kamu semakin percaya diri dalam menyampaikan pendapat, semakin berani mengomunikasikan apa yang kamu pikirkan, dan nggak ragu untuk menunjukkan apa yang sebenarnya kamu inginkan. you have so much potential, and I hope you never hold yourself back from exploring it. jangan merasa bahwa kamu harus selalu menjadi orang yang paling banyak bicara untuk bisa membelikan pengaruh. sometimes, the quietest people have so much to offer, and I believe you&#x27;re one of them.</p></article>
+<article class="paper-page"><p>lastly, thank you for being part of IR, Anin. thank you for every responsibility you&#x27;ve taken, every effort you&#x27;ve put into your work, and every little contribution that perhaps I haven&#x27;t appreciated enough directly. I&#x27;m sorry if I haven&#x27;t been the manager you expected me to be. but please know that I never took your presence for granted.</p>
+<p>I hope life treats you kindly, Anin. semoga kamu selalu dipertemukan dengan orang-orang yang mau mendengarkan kamu, menghargai usaha kamu, dan membantu kamu ketika kamu sedang membutuhkan bantuan. you deserve an environment where you feel seen, heard, and appreciated.</p></article>
+<article class="paper-page"><p>I&#x27;m genuinely rooting for you, Anin. wherever life takes you next, I hope you find your place, grow into the person you want to become, and never stop believing in your own potential.</p>
+<p>thank you for being part of my journey. ❤️</p></article>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">← BACK</button>
+        <span class="counter" id="counter"></span>
+        <button id="nextBtn">NEXT →</button>
+      </div>
+    </div>
+
+    <div class="tools">
+      <button id="musicBtn">♫ PLAY OUR SONG</button>
+      <button id="secretBtn">✉ OPEN A LITTLE NOTE</button>
+    </div>
+    <div class="musicbox">
+      <strong>OUR LITTLE SOUNDTRACK</strong>
+      <p>Tekan tombol play untuk memutar lagu pilihan. Video musik YouTube akan muncul di sini setelah tombol ditekan.</p>
+      <iframe id="player" title="YouTube music player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="secret">
+      <strong>A LITTLE EXTRA FOR YOU</strong>
+      <div class="secret-content" id="secretContent">Thank you for being part of my SxC journey. Keep this little reminder: you are appreciated.</div>
+    </div>
+  </section>
+  <div class="footer">Made with care by Sofia · SxC Batch 9</div>
+</main>
+<script>
+// GANTI URL DI BAWAH DENGAN LINK VIDEO YOUTUBE PILIHANMU.
+// Contoh: https://www.youtube.com/watch?v=VIDEO_ID
+const YOUTUBE_URL = "https://www.youtube.com/watch?v=Sl6en1NPTYM";
+
+const pages = [...document.querySelectorAll(".paper-page")];
+let current = 0;
+const showPage = () => {
+  pages.forEach((page, i) => page.style.display = i === current ? "block" : "none");
+  document.getElementById("counter").textContent = `PAGE ${current+1} / ${pages.length}`;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").textContent = current === pages.length-1 ? "THE END ✓" : "NEXT →";
+};
+document.getElementById("openBtn").addEventListener("click", () => {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("book").style.display = "block";
+  showPage();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("prevBtn").addEventListener("click", () => { if(current>0){current--;showPage();} });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if(current<pages.length-1){current++;showPage();}
+  else { document.getElementById("secretContent").style.display="block"; }
+});
+document.getElementById("musicBtn").addEventListener("click", () => {
+  const match = YOUTUBE_URL.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+  if(!match){ alert("Masukkan link YouTube yang valid di bagian YOUTUBE_URL pada kode."); return; }
+  const player = document.getElementById("player");
+  player.src = "https://www.youtube-nocookie.com/embed/" + match[1] + "?autoplay=1&rel=0";
+  player.style.display = "block";
+  document.getElementById("musicBtn").textContent = "♫ SONG PLAYER OPEN";
+});
+document.getElementById("secretBtn").addEventListener("click", () => {
+  const note=document.getElementById("secretContent");
+  note.style.display = note.style.display==="block" ? "none" : "block";
+});
+showPage();
+</script>
+</body>
+</html>
